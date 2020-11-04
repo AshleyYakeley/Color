@@ -113,6 +113,12 @@ instance ( Typeable cs
   {-# INLINE toBaseSpace #-}
   fromBaseSpace = rgbLuma
   {-# INLINE fromBaseSpace #-}
+  grayscale = coerce
+  {-# INLINE grayscale #-}
+  applyGrayscale c f = coerce (f (coerce c))
+  {-# INLINE applyGrayscale #-}
+  replaceGrayscale _ = coerce
+  {-# INLINE replaceGrayscale #-}
   luminance = luminance . toBaseLinearSpace
   {-# INLINE luminance #-}
   toColorXYZ = toColorXYZ . toBaseLinearSpace
