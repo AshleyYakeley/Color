@@ -110,14 +110,13 @@ instance ( Typeable cs
          , ColorSpace (cs 'NonLinear) i e
          , Luma cs
          , RedGreenBlue cs i
-         , RealFloat e
          ) =>
          ColorSpace (Y' cs) i e where
   type BaseModel (Y' cs) = CM.X
   type BaseSpace (Y' cs) = cs 'NonLinear
   toBaseSpace y = pure (coerce y :: e)
   {-# INLINE toBaseSpace #-}
-  fromBaseSpace = rgbLuma
+  fromBaseSpace = fmap fromDouble . rgbLuma
   {-# INLINE fromBaseSpace #-}
   grayscale = coerce
   {-# INLINE grayscale #-}
@@ -125,9 +124,9 @@ instance ( Typeable cs
   {-# INLINE applyGrayscale #-}
   replaceGrayscale _ = coerce
   {-# INLINE replaceGrayscale #-}
-  luminance = luminance . toBaseLinearSpace
+  luminance = luminance . fmap (fromDouble :: Double -> e) . toBaseLinearSpace . fmap toDouble
   {-# INLINE luminance #-}
-  toColorXYZ = toColorXYZ . toBaseLinearSpace
+  toColorXYZ = toColorXYZ . fmap (fromDouble :: Double -> e) . toBaseLinearSpace . fmap toDouble
   {-# INLINE toColorXYZ #-}
 
 -- | Convert Luma directly into the linear version of base space. This is equivalent to
