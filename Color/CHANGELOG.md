@@ -1,9 +1,15 @@
 # Changelog for Color
 
-## 0.3.1
+## 0.4.0
 
+* Scale `L*a*b*` color space to `[0, 1]` range from the more common `[0, 100]` for
+  consistency.
 * Addition of: `toGrayscale`, `applyGrayscale` and `replaceGrayscale`.
 * Addition of: `ChannelCount`, `channelCount`, `channelNames` and `channelColors`
+
+
+## 0.3.1
+
 * Remove `RealFloat` constraint from `ColorSpace` for `Y'`
 
 ## 0.3.0
